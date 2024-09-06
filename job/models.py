@@ -16,8 +16,23 @@ class Job(models.Model):
   vacancies=models.IntegerField(default=1)
   salary = models.IntegerField(default=0)
   experience = models.IntegerField(default=1)
+  '''foreign key here 
+  #since python code is executed line by line from top to bottom
+   then Category must be defined in single quotes as the class Category
+   comes after the class Job'''
+  category = models.ForeignKey('Category', on_delete=models.CASCADE, null=True)
 
   #since i need to rename the job added on my admin dashboard
   # to a name of my choice, i have to use def __str__(self)
   def __str__(self):
     return self.title
+
+
+'''since it is a one-to-many relationship, job is 
+associated with a specific category but a 
+category contains many jobs
+'''
+class Category(models.Model):
+  name = models.CharField(max_length=25)
+  def __str__(self):
+    return self.name
