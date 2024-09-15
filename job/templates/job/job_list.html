@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>job_list</title>
+</head>
+<body>
+<h1>job_list</h1>
+{#{{ jobs }}#}
+{% for job in jobs %}
+    <ul>
+    <li>
+        {{ job }}
+    </li>
+    </ul>
+{% endfor %}
+</body>
+</html>
