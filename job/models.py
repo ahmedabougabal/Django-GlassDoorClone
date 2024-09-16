@@ -1,9 +1,19 @@
+import os
+import uuid
+
 from django.db import models
 
 JOB_TYPES = (
   ('Full Time','Full Time'),
   ('Part Time','Part Time'),
 )
+def image_handle(instance, filename):
+  extension = filename.split('.')[-1]
+  if instance.pk:
+    new_filename = f'{instance.pk}.{extension}'
+  else: #if instance has no pk yet, Generate a random UUID.
+    new_filename = f'{uuid.uuid4()}.{extension}'
+  return os.path.join('jobs', new_filename)
 
 # Create your models here.
 class Job(models.Model):
@@ -21,6 +31,7 @@ class Job(models.Model):
    then Category must be defined in single quotes as the class Category
    comes after the class Job'''
   category = models.ForeignKey('Category', on_delete=models.CASCADE, null=True)
+  image = models.ImageField(upload_to=image_handle)
 
   #since i need to rename the job added on my admin dashboard
   # to a name of my choice, i have to use def __str__(self)
