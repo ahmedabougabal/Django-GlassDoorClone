@@ -1,6 +1,6 @@
 from multiprocessing.pool import job_counter
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 from job.models import Job
 
@@ -18,3 +18,8 @@ def job_detail(request, job_id):
   # or
   context = {'job' : get_object_or_404(Job, pk=job_id)}
   return render(request, 'job/job_detail.html',context)
+
+def delete_image(request, job_id):
+  job = get_object_or_404(Job, id=job_id)
+  job.image.delete(save=True)  # Delete the image from the file system
+  return redirect('/admin/app/job/')  # Redirect back to the admin page
