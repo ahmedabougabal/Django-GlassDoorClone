@@ -6,9 +6,11 @@ from django.urls import path, include
 from . import views
 from .views import delete_image
 
+app_name = 'job'  # This is the app namespace
+
 urlpatterns = [
     path('', views.job_list), # returns all jobs (job_list) it will be triggered when the user types localhost:8000/jobs
-    path('<int:job_id>', views.job_detail), # returns a single job
+    path('<int:job_id>', views.job_detail, name='job_detail'), # returns a single job
     path('admin/delete_image/<int:job_id>/', delete_image, name='delete_image'),
 
 ]
